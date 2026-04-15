@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Memories 💌</title>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial;
+    color: white;
+    text-align: center;
+
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+}
+
+.card {
+    width: 92%;
+    max-width: 520px;
+    background: rgba(0,0,0,0.25);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 95px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* MODAL */
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.92);
+
+    display: none;
+
+    justify-content: flex-start;
+    align-items: center;
+
+    overflow-y: auto;
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10000;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* content box */
+.modal-content {
+    width: 95%;
+    max-width: 420px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin-top: 20px;
+    padding-bottom: 40px;
+}
+
+/* image */
+.modal-content img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+/* text */
+#reason {
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: center;
+
+    background: rgba(255,255,255,0.08);
+    padding: 12px;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>💌 Our Love Memories</h2>
+    <p>Every picture has a reason why I love you 💖</p>
+
+    <div class="gallery" id="gallery"></div>
+
+    <br>
+    <a href="index.html" style="color:white;">⬅ Back</a>
+</div>
+
+<!-- MODAL -->
+<div id="modal" onclick="closeModal()">
+
+    <!-- ❌ CLOSE BUTTON -->
+    <div class="close-btn" onclick="event.stopPropagation(); closeModal();">✖</div>
+
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <img id="modalImg">
+        <div id="reason"></div>
+    </div>
+</div>
+
+<script>
+
+const memories = [
+    { img:"images/1.jpeg", reason:"I love you because you made my life feel peaceful when everything was confusing." },
+    { img:"images/2.jpeg", reason:"I love how your smile instantly makes my worst days better." },
+    { img:"images/3.jpeg", reason:"I love the way you understand me without me needing to explain everything." },
+    { img:"images/4.jpeg", reason:"I love how comfortable I feel just being myself around you." },
+    { img:"images/5.jpeg", reason:"I love your kindness even when no one is watching." },
+    { img:"images/6.jpeg", reason:"I love how you make ordinary moments feel special." },
+    { img:"images/7.jpeg", reason:"I love your voice it calms my mind instantly." },
+    { img:"images/8.jpeg", reason:"I love how you believe in me even when I doubt myself." },
+    { img:"images/9.jpeg", reason:"I love the little things you do that i don’t even notice sometimes." },
+    { img:"images/10.jpeg", reason:"I love how loved I feel when I’m with you." },
+    { img:"images/11.jpeg", reason:"I love your heart — it’s rare and genuine." },
+    { img:"images/12.jpeg", reason:"I love how you make me want to be a better person." },
+    { img:"images/13.jpeg", reason:"I love every conversation we have, even the small ones." },
+    { img:"images/14.jpeg", reason:"I love you because you are my favorite person in the world." },
+    { img:"images/15.jpeg", reason:"I love you because your smile makes my heart skip a beat." }
+];
+
+const gallery = document.getElementById("gallery");
+
+function renderGallery() {
+    memories.forEach(item => {
+        const img = document.createElement("img");
+        img.src = item.img;
+
+        img.onclick = () => {
+            document.getElementById("modal").style.display = "flex";
+            document.getElementById("modalImg").src = item.img;
+            document.getElementById("reason").innerText = item.reason;
+        };
+
+        gallery.appendChild(img);
+    });
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+renderGallery();
+
+</script>
+
+</body>
+</html>

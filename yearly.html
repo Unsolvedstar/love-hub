@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yearly 💍</title>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial;
+    color: white;
+    text-align: center;
+
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background: linear-gradient(135deg,#fbc2eb,#a6c1ee);
+}
+
+.card {
+    width: 90%;
+    max-width: 400px;
+    background: rgba(0,0,0,0.25);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>💍 Yearly Anniversary</h2>
+    <h3 id="countdown"></h3>
+
+    <button onclick="reveal()">🎁 Surprise</button>
+    <p id="secret" style="display:none;">
+        I will always choose you ❤️
+    </p>
+
+    <br>
+    <a href="index.html" style="color:white;">⬅ Back</a>
+</div>
+
+<script>
+function nextYearly() {
+    let now = new Date();
+    let target = new Date(now.getFullYear(), 9, 8);
+    if (now > target) target = new Date(now.getFullYear() + 1, 9, 8);
+    return target;
+}
+
+function update() {
+    let diff = nextYearly() - new Date();
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("countdown").innerText = days + " days left 💍";
+}
+
+function reveal() {
+    document.getElementById("secret").style.display = "block";
+}
+
+setInterval(update, 1000);
+update();
+</script>
+
+</body>
+</html>

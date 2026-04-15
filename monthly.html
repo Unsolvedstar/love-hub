@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly 💕</title>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial;
+    color: white;
+    text-align: center;
+
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background: linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+
+.card {
+    width: 90%;
+    max-width: 400px;
+    background: rgba(0,0,0,0.25);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>💕 Monthly Anniversary</h2>
+    <p>Next 8th of the month:</p>
+    <h3 id="countdown"></h3>
+
+    <button onclick="showNote()">💌 Leave Love Note</button>
+
+    <div id="noteBox" style="display:none;">
+        <textarea id="note"></textarea>
+        <button onclick="saveNote()">Save</button>
+    </div>
+
+    <p id="saved"></p>
+
+    <a href="index.html" style="color:white;">⬅ Back</a>
+</div>
+
+<script>
+function nextMonthly() {
+    let now = new Date();
+    let target = new Date(now.getFullYear(), now.getMonth(), 8);
+    if (now > target) target = new Date(now.getFullYear(), now.getMonth() + 1, 8);
+    return target;
+}
+
+function update() {
+    let diff = nextMonthly() - new Date();
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("countdown").innerText = days + " days left 💕";
+}
+
+function showNote() {
+    document.getElementById("noteBox").style.display = "block";
+}
+
+function saveNote() {
+    localStorage.setItem("loveNote", document.getElementById("note").value);
+    document.getElementById("saved").innerText = "Saved ❤️";
+}
+
+document.getElementById("saved").innerText =
+    localStorage.getItem("loveNote") || "";
+
+setInterval(update, 1000);
+update();
+</script>
+
+</body>
+</html>
